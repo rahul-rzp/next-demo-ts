@@ -30,3 +30,8 @@ a {
   border: 1px solid black;
   margin: 10px;
 }
+
+ul a{
+  color: blue;
+  text-decoration: underline;
+}

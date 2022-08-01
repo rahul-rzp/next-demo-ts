@@ -4,12 +4,23 @@ import Link from 'next/link'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <>
-  <Link href="/" prefetch={false}>
-    CSR page
+    <ul>
+      <Link href="/" prefetch={false}>
+    All users
   </Link>
-  <Link href="/ssr" prefetch={false}>
-    SSR page
+  <br />
+  <Link href="/1" prefetch={false}>
+    User 1
   </Link>
+  <br />
+  <Link href="/5" prefetch={false}>
+    User 5
+  </Link>
+  <br />
+  <Link href="/100" prefetch={false}>
+    User 100
+  </Link>
+  </ul>
   <Component {...pageProps} />
   </>
 }

@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build --debug",
     "start": "next start",
+    "export": "next export",
     "lint": "next lint",
     "docker": "yarn run docker:build && yarn run docker:run",
     "docker:build": "docker build -t nextjs-docker .",

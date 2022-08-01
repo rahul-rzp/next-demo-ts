@@ -9,9 +9,12 @@
     "lint": "next lint",
     "docker": "yarn run docker:build && yarn run docker:run",
     "docker:build": "docker build -t nextjs-docker .",
-    "docker:run": "docker run -p 3000:3000 nextjs-docker"
+    "docker:run": "yarn run docker:remove-old-container && docker run -itd -p 3000:3000 --name nextjs-docker-container nextjs-docker",
+    "docker:remove-old-container": "docker rm -f nextjs-docker-container",
+    "docker:logs": "docker logs nextjs-docker-container"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "next": "12.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0"

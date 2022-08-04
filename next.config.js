@@ -6,6 +6,10 @@ const nextConfig = {
     domains: ['i.ibb.co']
   },
   output: 'standalone',
+  experimental: { esmExternals: true },
 }
 
-module.exports = nextConfig
+const withBlade = require('next-transpile-modules')(['@razorpay/blade']);
+
+
+module.exports = withBlade(nextConfig)

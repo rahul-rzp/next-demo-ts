@@ -63,7 +63,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   console.log(customTheme ,"theme" ,paymentTheme);
   return (
     <>
-    <BladeProvider themeTokens={customTheme} colorScheme="dark">
+    <BladeProvider themeTokens={paymentTheme} colorScheme="dark">
       <Link href="/" prefetch={false}>
         CSR page
       </Link>

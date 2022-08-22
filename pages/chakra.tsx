@@ -4,6 +4,7 @@ import { Alert, AlertIcon, Button, extendTheme, Heading, Input, InputGroup, Inpu
 import {PhoneIcon} from '@chakra-ui/icons'
 
 import {  } from '@chakra-ui/react'
+import { CButton } from './blade/Button';
 
 const theme = extendTheme({
   colors: {
@@ -40,6 +41,9 @@ const customTheme = extendTheme(
 const Home: NextPage = ({ data }: any) => {
   return (
     <ChakraProvider theme={customTheme}>
+      <CButton>
+        hii
+      </CButton>
       <Button variant='solid'>
     Button11
   </Button>

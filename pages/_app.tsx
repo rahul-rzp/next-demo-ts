@@ -59,11 +59,100 @@ const customTheme = {
   }
 }
 
+const hue = 248;
+const primaryColor = `hsla(${hue}, 100%, 50%, 1)`;
+const secondaryColor = `hsla(${hue}, 100%, 99%, 1)`;
+const tertiaryColor = `hsla(${hue}, 100%, 96%, 1)`;
+const primaryText = `hsla(${hue}, 100%, 99%, 1)`;
+const focusColor = `hsla(${hue}, 100%, 80%, 1)`;
+const secondaryText = primaryColor;
+const tertiaryText = primaryColor;
+
+const theme2 = overrideTheme({
+    baseThemeTokens: paymentTheme,
+    overrides: {
+      colors: {
+        onLight: {
+          action: {
+            // action's text (button text)
+            text: {
+              primary: {
+                default: primaryText,
+              },
+              secondary: {
+                default: secondaryText,
+              },
+              tertiary: {
+                default: tertiaryText,
+              },
+            },
+            // action's background (button bg)
+            background: {
+              primary: {
+                default: primaryColor,
+                hover: primaryColor,
+                focus: primaryColor,
+              },
+              secondary: {
+                default: secondaryColor,
+                hover: secondaryColor,
+                focus: secondaryColor,
+              },
+              tertiary: {
+                default: tertiaryColor,
+                hover: tertiaryColor,
+                focus: tertiaryColor,
+              },
+            },
+            // action's border (button border)
+            border: {
+              primary: {
+                default: primaryColor,
+                hover: primaryColor,
+                focus: primaryColor,
+              },
+              secondary: {
+                default: primaryColor,
+                hover: primaryColor,
+                focus: primaryColor,
+              },
+              tertiary: {
+                default: tertiaryColor,
+                hover: tertiaryColor,
+                focus: tertiaryColor,
+              },
+            },
+          },
+          // text color
+          surface: {
+            text: {
+              normal: {
+                lowContrast: secondaryText,
+              },
+            },
+          },
+          // brand colors
+          // brand: {
+          //   primary: {
+          //     '500': primaryColor,
+          //     '400': focusColor,
+          //     '300': primaryColor,
+          //     '600': primaryColor,
+          //   },
+          //   secondary: {
+          //     '500': secondaryColor,
+          //   },
+          // },
+        },
+      },
+    },
+  });
+
 function MyApp({ Component, pageProps }: AppProps) {
   console.log(customTheme ,"theme" ,paymentTheme);
   return (
     <>
-    <BladeProvider themeTokens={paymentTheme} colorScheme="dark">
+    <BladeProvider themeTokens={theme2} colorScheme="light">
       <Link href="/" prefetch={false}>
         CSR page
       </Link>

@@ -24,13 +24,14 @@
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.10.0",
     "@razorpay/blade": "0.13.0",
+    "@types/styled-components": "^5.1.26",
     "axios": "^0.27.2",
     "framer-motion": "^7.1.0",
     "next": "12.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
-    "styled-components": "5.3.5"
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@mui/types": "^7.1.5",

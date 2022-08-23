@@ -5,6 +5,9 @@ import '@fontsource/lato/400.css';
 import '@fontsource/lato/700.css';
 import { BladeProvider } from '@razorpay/blade/components';
 import { bankingTheme, paymentTheme, overrideTheme} from '@razorpay/blade/tokens';
+import { PhotoshopPicker, ChromePicker, Color, ColorPickerProps, ColorResult } from "react-color";
+import { useState } from 'react';
+import tinycolor from 'tinycolor2';
 
 const newColors = {
   300 : 'orange',
@@ -59,7 +62,7 @@ const customTheme = {
   }
 }
 
-const hue = 248;
+const hue = 2;
 const primaryColor = `hsla(${hue}, 100%, 50%, 1)`;
 const secondaryColor = `hsla(${hue}, 100%, 99%, 1)`;
 const tertiaryColor = `hsla(${hue}, 100%, 96%, 1)`;
@@ -68,7 +71,31 @@ const focusColor = `hsla(${hue}, 100%, 80%, 1)`;
 const secondaryText = primaryColor;
 const tertiaryText = primaryColor;
 
-const theme2 = overrideTheme({
+const generateColors = (hex: string) => {
+  const hsl = tinycolor(hex).toHslString();
+  const dark1 = tinycolor(hex).darken(10).toHslString();
+  const dark2 = tinycolor(hex).darken(20).toHslString();
+  const light1 = tinycolor(hex).lighten(10).toHslString();
+  const light2 = tinycolor(hex).lighten(20).toHslString();
+  
+  const text = tinycolor(hex).toHsl();
+  text.l = 0.99;
+  console.log('READability: ', tinycolor.isReadable(hsl, text, {level:"AA",size:"small"}), tinycolor.isReadable(hsl, text, {level:"AAA",size:"small"}), tinycolor.readability(hsl, text))
+  if(!tinycolor.isReadable(hsl, text)){
+    text.l = 0.1;
+    console.log('use black text')
+  }
+  const textColor = tinycolor(text).toHslString();
+
+  return { hsl, dark1, dark2, light1, light2, textColor};
+}
+
+const generatePalette = (color: any) => {
+  const hex = color.hex;
+  const { hsl: primaryHsl, dark1, dark2, light1, light2, textColor} = generateColors(hex);
+  console.log("COLORS: ", primaryHsl, dark1, dark2, textColor)
+
+  const newTheme = overrideTheme({
     baseThemeTokens: paymentTheme,
     overrides: {
       colors: {
@@ -77,7 +104,7 @@ const theme2 = overrideTheme({
             // action's text (button text)
             text: {
               primary: {
-                default: primaryText,
+                default: textColor,
               },
               secondary: {
                 default: secondaryText,
@@ -89,9 +116,9 @@ const theme2 = overrideTheme({
             // action's background (button bg)
             background: {
               primary: {
-                default: primaryColor,
-                hover: primaryColor,
-                focus: primaryColor,
+                default: primaryHsl,
+                hover: dark1,
+                focus: dark1,
               },
               secondary: {
                 default: secondaryColor,
@@ -107,9 +134,9 @@ const theme2 = overrideTheme({
             // action's border (button border)
             border: {
               primary: {
-                default: primaryColor,
-                hover: primaryColor,
-                focus: primaryColor,
+                default: primaryHsl,
+                hover: dark1,
+                focus: dark2,
               },
               secondary: {
                 default: primaryColor,
@@ -122,15 +149,20 @@ const theme2 = overrideTheme({
                 focus: tertiaryColor,
               },
             },
+            icon: {
+              primary: {
+                default: textColor
+              }
+            }
           },
           // text color
-          surface: {
-            text: {
-              normal: {
-                lowContrast: secondaryText,
-              },
-            },
-          },
+          // surface: {
+          //   text: {
+          //     normal: {
+          //       lowContrast: secondaryText,
+          //     },
+          //   },
+          // },
           // brand colors
           // brand: {
           //   primary: {
@@ -147,18 +179,33 @@ const theme2 = overrideTheme({
       },
     },
   });
+  return newTheme;
+}
 
 function MyApp({ Component, pageProps }: AppProps) {
-  console.log(customTheme ,"theme" ,paymentTheme);
+
+  const [color, setColor] = useState({
+    hsl: { h: 22, s: 1, l: 0.5, a: 1 },
+    hex: {}
+  });
+  const [myTheme, setMyTheme] = useState<any>(generatePalette(color));
+
+  const handleColorChange = (c: any) => {
+    setColor(c);
+    setMyTheme(generatePalette(c));
+  };
+  
   return (
     <>
-    <BladeProvider themeTokens={theme2} colorScheme="light">
+    <BladeProvider themeTokens={myTheme} colorScheme="light">
       <Link href="/" prefetch={false}>
         CSR page
       </Link>
       <Link href="/ssr" prefetch={false}>
         SSR page
       </Link>
+      <br />
+      <ChromePicker onChangeComplete={handleColorChange} color={color} />
       <Component {...pageProps} />
     </BladeProvider>
     </>

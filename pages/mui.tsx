@@ -44,8 +44,6 @@ export const themeOptions: any = createTheme({
 //   },
 // });
 
-console.log(themeOptions, "theme")
-
 const Home: NextPage = ({ data }: any) => {
   const theme = useTheme();
   return (

@@ -16,7 +16,6 @@ const Home: NextPage = () => {
       .then(response => response.json())
       .then(res => setData(res))
   }, [])
-  console.log(theme, "useTheme", theme.colors.brand.primary)
   return (
     <div className={styles.container}>
     <Button

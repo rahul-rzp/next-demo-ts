@@ -7,7 +7,6 @@ import Profile from './components/Profile'
 import axios from 'axios'
 
 const Home: NextPage = ({ data }: any) => {
-  console.log(data)
   return (
     <div className={styles.container}>
       {!data ? <div>Loading...</div> : (

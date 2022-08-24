@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build --debug",
+    "build": "next build",
+    "build:debug": "next build --debug",
     "start": "next start",
     "lint": "next lint",
     "docker": "yarn run docker:build && yarn run docker:run",

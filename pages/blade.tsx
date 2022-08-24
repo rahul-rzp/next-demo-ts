@@ -39,14 +39,14 @@ const Home: NextPage = ({ data }: any) => {
 </Heading>
 <Checkbox
   defaultChecked
-  labelPosition="top"
+  // labelPosition="top"
   onChange={function noRefCheck(){}}
 >
   Toggle checkbox
 </Checkbox>
 <Link
     href="https://github.com/razorpay/blade"
-    icon={function noRefCheck(){}}
+    // icon={function noRefCheck(){}}
     iconPosition="left"
     rel="noreferrer noopener"
     target="_blank"
@@ -63,7 +63,7 @@ const Home: NextPage = ({ data }: any) => {
     </BaseText>
   </styled.div> */}
   <Link
-    icon={function noRefCheck(){}}
+    // icon={function noRefCheck(){}}
     iconPosition="left"
     variant="button"
   >

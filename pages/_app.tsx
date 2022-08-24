@@ -84,7 +84,7 @@ const generatePalette = (color: any) => {
   const hex = color.hex;
   const { hsl: primaryColor, dark1:primaryDark, dark2: primaryDark2, light1: primaryLight, light2: primaryLight2, textColor: primaryText, textColorDark} = generateColors(hex);
   const secondaryColor = "#fff";
-  const secondaryDark = tinycolor(primaryLight).setAlpha(0.1);
+  const secondaryDark = tinycolor(primaryLight).setAlpha(0.1).toHslString();
   const secondaryText = primaryColor;
 
   const newTheme = overrideTheme({
@@ -166,7 +166,7 @@ const generatePalette = (color: any) => {
 
 function MyApp({ Component, pageProps }: AppProps) {
 
-  const [color, setColor] = useState({
+  const [color, setColor] = useState<any>({
     hsl: { h: 22, s: 1, l: 0.5, a: 1 },
     hex: {}
   });

@@ -101,10 +101,10 @@ const Home: NextPage = ({ data }: any) => {
   </Alert>
   <br />
   <InputGroup>
-    <InputLeftElement
+    {/* <InputLeftElement
       pointerEvents='none'
       children={<PhoneIcon color='gray.300' />}
-    />
+    /> */}
     <Input type='tel' placeholder='Phone number' />
   </InputGroup>
     </ChakraProvider>

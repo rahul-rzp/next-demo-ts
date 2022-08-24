@@ -62,42 +62,30 @@ const customTheme = {
   }
 }
 
-// const hue = 2;
-// const primaryColor = `hsla(${hue}, 100%, 50%, 1)`;
-// const secondaryColor = `hsla(${hue}, 100%, 99%, 1)`;
-// const tertiaryColor = `hsla(${hue}, 100%, 96%, 1)`;
-// const primaryText = `hsla(${hue}, 100%, 99%, 1)`;
-// const focusColor = `hsla(${hue}, 100%, 80%, 1)`;
-// const secondaryText = primaryColor;
-// const tertiaryText = primaryColor;
-
 const generateColors = (hex: string) => {
   const hsl = tinycolor(hex).toHslString();
   const dark1 = tinycolor(hex).darken(10).toHslString();
   const dark2 = tinycolor(hex).darken(20).toHslString();
   const light1 = tinycolor(hex).lighten(10).toHslString();
-  const light2 = tinycolor(hex).lighten(20).toHslString();
+  const light2 = tinycolor(hex).lighten(50).toHslString();
   
   const text = tinycolor(hex).toHsl();
   text.l = 0.99;
-  console.log('READability: ', tinycolor.isReadable(hsl, text, {level:"AA",size:"small"}), tinycolor.isReadable(hsl, text, {level:"AAA",size:"small"}), tinycolor.readability(hsl, text))
-  if(!tinycolor.isReadable(hsl, text)){
-    text.l = 0.1;
-    console.log('use black text')
-  }
-  const textColor = tinycolor(text).toHslString();
+  const lightFont = tinycolor(text).toHslString();
+  text.l = 0.1;
+  const darkFont = tinycolor(text).toHslString();
+  const textColor = tinycolor.mostReadable(hsl, [lightFont, darkFont]).toHslString();
+  const textColorDark = tinycolor(textColor).darken(10).toHslString();
 
-  // console.log("COLORS: ", hsl, dark1, dark2, textColor, light1, light2)
-  return { hsl, dark1, dark2, light1, light2, textColor};
+  return { hsl, dark1, dark2, light1, light2, textColor, textColorDark };
 }
 
 const generatePalette = (color: any) => {
   const hex = color.hex;
-  const { hsl: primaryColor, dark1:primaryDark, dark2: primaryDark2, light1: primaryLight, light2: primaryLight2, textColor: primaryText} = generateColors(hex);
+  const { hsl: primaryColor, dark1:primaryDark, dark2: primaryDark2, light1: primaryLight, light2: primaryLight2, textColor: primaryText, textColorDark} = generateColors(hex);
   const secondaryColor = "#fff";
+  const secondaryDark = tinycolor(primaryLight).setAlpha(0.1);
   const secondaryText = primaryColor;
-  const tertiaryColor = "#fff";
-  const tertiaryText = primaryColor;
 
   const newTheme = overrideTheme({
     baseThemeTokens: paymentTheme,
@@ -113,9 +101,6 @@ const generatePalette = (color: any) => {
               secondary: {
                 default: secondaryText,
               },
-              tertiary: {
-                default: tertiaryText,
-              },
             },
             // action's background (button bg)
             background: {
@@ -126,13 +111,8 @@ const generatePalette = (color: any) => {
               },
               secondary: {
                 default: secondaryColor,
-                hover: secondaryColor,
-                focus: secondaryColor,
-              },
-              tertiary: {
-                default: tertiaryColor,
-                hover: tertiaryColor,
-                focus: tertiaryColor,
+                hover: secondaryDark,
+                focus: secondaryDark,
               },
             },
             // action's border (button border)
@@ -143,14 +123,9 @@ const generatePalette = (color: any) => {
                 focus: primaryDark,
               },
               secondary: {
-                default: primaryColor,
-                hover: primaryColor,
-                focus: primaryColor,
-              },
-              tertiary: {
-                default: tertiaryColor,
-                hover: tertiaryColor,
-                focus: tertiaryColor,
+                default: secondaryColor,
+                hover: secondaryDark,
+                focus: secondaryDark,
               },
             },
             icon: {
@@ -159,9 +134,6 @@ const generatePalette = (color: any) => {
               },
               secondary: {
                 default: secondaryText
-              },
-              tertiary: {
-                default: tertiaryText
               },
             }
           },

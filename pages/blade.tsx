@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const Home: NextPage = ({ data }: any) => {
   return (
-   <div>
+   <div style={{ margin: '10px'}}>
 <Text
   contrast="low"
   size="medium"

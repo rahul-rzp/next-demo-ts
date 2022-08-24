@@ -62,14 +62,14 @@ const customTheme = {
   }
 }
 
-const hue = 2;
-const primaryColor = `hsla(${hue}, 100%, 50%, 1)`;
-const secondaryColor = `hsla(${hue}, 100%, 99%, 1)`;
-const tertiaryColor = `hsla(${hue}, 100%, 96%, 1)`;
-const primaryText = `hsla(${hue}, 100%, 99%, 1)`;
-const focusColor = `hsla(${hue}, 100%, 80%, 1)`;
-const secondaryText = primaryColor;
-const tertiaryText = primaryColor;
+// const hue = 2;
+// const primaryColor = `hsla(${hue}, 100%, 50%, 1)`;
+// const secondaryColor = `hsla(${hue}, 100%, 99%, 1)`;
+// const tertiaryColor = `hsla(${hue}, 100%, 96%, 1)`;
+// const primaryText = `hsla(${hue}, 100%, 99%, 1)`;
+// const focusColor = `hsla(${hue}, 100%, 80%, 1)`;
+// const secondaryText = primaryColor;
+// const tertiaryText = primaryColor;
 
 const generateColors = (hex: string) => {
   const hsl = tinycolor(hex).toHslString();
@@ -87,13 +87,17 @@ const generateColors = (hex: string) => {
   }
   const textColor = tinycolor(text).toHslString();
 
+  // console.log("COLORS: ", hsl, dark1, dark2, textColor, light1, light2)
   return { hsl, dark1, dark2, light1, light2, textColor};
 }
 
 const generatePalette = (color: any) => {
   const hex = color.hex;
-  const { hsl: primaryHsl, dark1, dark2, light1, light2, textColor} = generateColors(hex);
-  console.log("COLORS: ", primaryHsl, dark1, dark2, textColor)
+  const { hsl: primaryColor, dark1:primaryDark, dark2: primaryDark2, light1: primaryLight, light2: primaryLight2, textColor: primaryText} = generateColors(hex);
+  const secondaryColor = "#fff";
+  const secondaryText = primaryColor;
+  const tertiaryColor = "#fff";
+  const tertiaryText = primaryColor;
 
   const newTheme = overrideTheme({
     baseThemeTokens: paymentTheme,
@@ -104,7 +108,7 @@ const generatePalette = (color: any) => {
             // action's text (button text)
             text: {
               primary: {
-                default: textColor,
+                default: primaryText,
               },
               secondary: {
                 default: secondaryText,
@@ -116,9 +120,9 @@ const generatePalette = (color: any) => {
             // action's background (button bg)
             background: {
               primary: {
-                default: primaryHsl,
-                hover: dark1,
-                focus: dark1,
+                default: primaryColor,
+                hover: primaryDark,
+                focus: primaryDark,
               },
               secondary: {
                 default: secondaryColor,
@@ -134,9 +138,9 @@ const generatePalette = (color: any) => {
             // action's border (button border)
             border: {
               primary: {
-                default: primaryHsl,
-                hover: dark1,
-                focus: dark2,
+                default: primaryColor,
+                hover: primaryDark,
+                focus: primaryDark,
               },
               secondary: {
                 default: primaryColor,
@@ -151,8 +155,14 @@ const generatePalette = (color: any) => {
             },
             icon: {
               primary: {
-                default: textColor
-              }
+                default: primaryText
+              },
+              secondary: {
+                default: secondaryText
+              },
+              tertiary: {
+                default: tertiaryText
+              },
             }
           },
           // text color
@@ -164,17 +174,17 @@ const generatePalette = (color: any) => {
           //   },
           // },
           // brand colors
-          // brand: {
-          //   primary: {
-          //     '500': primaryColor,
-          //     '400': focusColor,
-          //     '300': primaryColor,
-          //     '600': primaryColor,
-          //   },
-          //   secondary: {
-          //     '500': secondaryColor,
-          //   },
-          // },
+          brand: {
+            primary: {
+              '500': primaryColor,
+              '400': primaryDark,
+              '300': primaryColor,
+              '600': primaryColor,
+            },
+            secondary: {
+              '500': secondaryColor,
+            },
+          },
         },
       },
     },

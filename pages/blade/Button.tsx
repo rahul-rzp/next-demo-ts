@@ -52,3 +52,6 @@ export const OtherButton = styled.button`
   border: 2px solid palevioletred;
   border-radius: 3px;
 `;
+
+
+export default SecondaryButton;
